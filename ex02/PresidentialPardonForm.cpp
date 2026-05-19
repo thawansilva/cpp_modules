@@ -1,42 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PresidentialPardonForm.cpp                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/19 18:55:43 by thaperei          #+#    #+#             */
+/*   Updated: 2026/05/19 19:10:12 by thaperei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm() : _value(0)
-{
-}
+PresidentialPardonForm::PresidentialPardonForm(): _name("Default"), _signGrade(25), _executeGrade(5), _isSigned(false)
+{}
 
-PresidentialPardonForm::PresidentialPardonForm(arguments) : _value(0)
-{
-}
+PresidentialPardonForm::PresidentialPardonForm(const std::string &name): _name(name), _signGrade(25), _executeGrade(5), _isSigned(false)
+{}
 
 PresidentialPardonForm::~PresidentialPardonForm()
+{ }
+
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& src)
 {
+	*this = src;
 }
 
-PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& other)
+PresidentialPardonForm&	PresidentialPardonForm::operator=(const PresidentialPardonForm& src)
 {
-	*this = other;
-}
-
-PresidentialPardonForm&	PresidentialPardonForm::operator=(const PresidentialPardonForm& other)
-{
-	if (this != &other)
-	{
-		_value = other._value;
-	}
+	if (this != &src)
+		return (*this);
 	return *this;
-}
-
-int		PresidentialPardonForm::getValue(void) const
-{
-	return _value;
-}
-
-void	PresidentialPardonForm::setValue(int value)
-{
-	_value = value;
 }
 
 std::ostream&	operator<<(std::ostream& out, const PresidentialPardonForm& src)
 {
+	(void)out;
+	(void)src;
 	return (out);
 }

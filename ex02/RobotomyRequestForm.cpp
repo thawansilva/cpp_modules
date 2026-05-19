@@ -1,42 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   RobotomyRequestForm.cpp                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/19 18:55:26 by thaperei          #+#    #+#             */
+/*   Updated: 2026/05/19 19:06:55 by thaperei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm() : _value(0)
+RobotomyRequestForm::RobotomyRequestForm(): _name("Default"), _signGrade(72), _executeGrade(45), _isSigned(false)
 {
 }
 
-RobotomyRequestForm::RobotomyRequestForm(arguments) : _value(0)
-{
-}
+RobotomyRequestForm::RobotomyRequestForm(const std::string &name): _name(name), _signGrade(72), _executeGrade(45), _isSigned(false)
+{}
 
 RobotomyRequestForm::~RobotomyRequestForm()
+{}
+
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& src)
 {
+	*this = src;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other)
+RobotomyRequestForm&	RobotomyRequestForm::operator=(const RobotomyRequestForm& src)
 {
-	*this = other;
-}
-
-RobotomyRequestForm&	RobotomyRequestForm::operator=(const RobotomyRequestForm& other)
-{
-	if (this != &other)
-	{
-		_value = other._value;
-	}
+	if (this != &src)
+		return (*this);
 	return *this;
-}
-
-int		RobotomyRequestForm::getValue(void) const
-{
-	return _value;
-}
-
-void	RobotomyRequestForm::setValue(int value)
-{
-	_value = value;
 }
 
 std::ostream&	operator<<(std::ostream& out, const RobotomyRequestForm& src)
 {
+	(void)out;
+	(void)src;
 	return (out);
 }

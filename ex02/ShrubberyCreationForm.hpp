@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 18:24:10 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/17 18:30:46 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/05/19 19:21:13 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,13 @@ class ShrubberyCreationForm: public AForm
 {
 public:
 	ShrubberyCreationForm();
-	ShrubberyCreationForm(const std::string name);
-	ShrubberyCreationForm(const std::string name, unsigned int signGrade,
-		unsigned int executeGrade);
+	ShrubberyCreationForm(const std::string &name);
 	~ShrubberyCreationForm();
 	ShrubberyCreationForm(const ShrubberyCreationForm& src);
 	ShrubberyCreationForm& operator=(const ShrubberyCreationForm& src);
 
 	// Member function
-	virtual			execute(Bureaucrat const &executor) const = 0;
+	virtual			execute(Bureaucrat const &executor) const;
 };
 
 std::ostream&	operator<<(std::ostream& out, const ShrubberyCreationForm& src);

@@ -1,42 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ShrubberyCreationForm.cpp                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/19 18:56:05 by thaperei          #+#    #+#             */
+/*   Updated: 2026/05/19 19:22:25 by thaperei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm() : _value(0)
-{
-}
+ShrubberyCreationForm::ShrubberyCreationForm(): _name("Default"), _signGrade(145), _executeGrade(137), _isSigned(false)
+{}
 
-ShrubberyCreationForm::ShrubberyCreationForm(arguments) : _value(0)
-{
-}
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &name): _name(name), _signGrade(145), _executeGrade(137), _isSigned(false)
+{}
 
 ShrubberyCreationForm::~ShrubberyCreationForm()
+{}
+
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& src)
 {
+	*this = src;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other)
+ShrubberyCreationForm&	ShrubberyCreationForm::operator=(const ShrubberyCreationForm& src)
 {
-	*this = other;
-}
-
-ShrubberyCreationForm&	ShrubberyCreationForm::operator=(const ShrubberyCreationForm& other)
-{
-	if (this != &other)
-	{
-		_value = other._value;
-	}
+	if (this != &src)
+		return (*this);
 	return *this;
-}
-
-int		ShrubberyCreationForm::getValue(void) const
-{
-	return _value;
-}
-
-void	ShrubberyCreationForm::setValue(int value)
-{
-	_value = value;
 }
 
 std::ostream&	operator<<(std::ostream& out, const ShrubberyCreationForm& src)
 {
+	(void)out;
+	(void)src;
 	return (out);
 }

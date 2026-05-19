@@ -1,22 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PresidentialPardonForm.hpp                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/19 18:55:57 by thaperei          #+#    #+#             */
+/*   Updated: 2026/05/19 19:21:24 by thaperei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #pragma once
 
 class PresidentialPardonForm
 {
 public:
 	PresidentialPardonForm();
-	PresidentialPardonForm(arguments);
+	PresidentialPardonForm(const std::string &name);
 	~PresidentialPardonForm();
-	PresidentialPardonForm(const PresidentialPardonForm& other);
-	PresidentialPardonForm& operator=(const PresidentialPardonForm& other);
+	PresidentialPardonForm(const PresidentialPardonForm& src);
+	PresidentialPardonForm& operator=(const PresidentialPardonForm& src);
 
-	//Member Functions
-
-	// Getters & Setters
-	int		getValue(void) const;
-	void	setValue(int value);
-
-private:
-	int _value;
+	virtual			execute(Bureaucrat const &executor) const;
 };
 
 std::ostream&	operator<<(std::ostream& out, const PresidentialPardonForm& src);

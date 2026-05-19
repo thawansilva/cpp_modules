@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:58:16 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/17 18:30:23 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/05/19 19:04:23 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ class Bureaucrat;
 
 class AForm
 {
-protected:
 	const std::string	_name;
 	const unsigned int	_signGrade;
 	const unsigned int	_executeGrade;
@@ -27,8 +26,8 @@ public:
 	AForm();
 	AForm(const std::string &name, unsigned int signGrade, unsigned int executeGrade);
 	~AForm();
-	AForm(const AForm& other);
-	AForm& operator=(const AForm& other);
+	AForm(const AForm& src);
+	AForm& operator=(const AForm& src);
 
 	//Member Functions
 	bool			isSigned(void) const;

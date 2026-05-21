@@ -30,6 +30,7 @@ public:
 	void			incrementGrade(void);
 	void			decrementGrade(void);
 	void			signForm(AForm &form);
+	virtual void	executeForm(AForm const &form) const;
 
 	// Getters & Setters
 	std::string		getName(void) const;

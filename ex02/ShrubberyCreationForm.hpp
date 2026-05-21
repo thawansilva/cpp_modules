@@ -23,7 +23,7 @@ public:
 	ShrubberyCreationForm& operator=(const ShrubberyCreationForm& src);
 
 	// Member function
-	virtual			execute(Bureaucrat const &executor) const;
+	virtual void	execute(Bureaucrat const &executor) const;
 };
 
 std::ostream&	operator<<(std::ostream& out, const ShrubberyCreationForm& src);

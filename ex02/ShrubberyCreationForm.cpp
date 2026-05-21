@@ -11,11 +11,12 @@
 /* ************************************************************************** */
 
 #include "ShrubberyCreationForm.hpp"
+#include <fstream.h>
 
-ShrubberyCreationForm::ShrubberyCreationForm(): _name("Default"), _signGrade(145), _executeGrade(137), _isSigned(false)
+ShrubberyCreationForm::ShrubberyCreationForm(): Form("Default", 145, 137, false)
 {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string &name): _name(name), _signGrade(145), _executeGrade(137), _isSigned(false)
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &name): Form(name, 145, 137, false)
 {}
 
 ShrubberyCreationForm::~ShrubberyCreationForm()
@@ -33,9 +34,47 @@ ShrubberyCreationForm&	ShrubberyCreationForm::operator=(const ShrubberyCreationF
 	return *this;
 }
 
+void	ShrubberyCreationForm::execute(Bureaucrat const &executor) const
+{
+	if (this->isSigned() && executor.getExecuteGrade() < this->getExecuteGrade())
+	{
+		std::fstream	outfile(this->getName().append("_shrubbery").c_str());
+		if (file.is_open())
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				outfile <<
+					"         v" << std::endl <<
+					"        >X<" << std::endl <<
+					"         A" << std::endl <<
+					"        d$b" << std::endl <<
+					"      .d\\$$b." << std::endl <<
+					"    .d$i$$\\$$b." << std::endl <<
+					"       d$$@b" << std::endl <<
+					"      d\\$$$ib" << std::endl <<
+					"    .d$$$\\$$$b" << std::endl <<
+					"  .d$$@$$$$\\$$ib." << std::endl <<
+					"      d$$i$$b" << std::endl <<
+					"     d\\$$$$@$b" << std::endl <<
+					"  .d$@$$\\$$$$$@b." << std::endl <<
+					".d$$$$i$$$\\$$$$$$b." << std::endl <<
+					"        ###" << std::endl <<
+					"        ###" << std::endl <<
+					"        ###" << std::endl <<
+					std::endl;
+			}
+			outfile.close();
+		}
+		return ;
+	}
+	throw Form::ExecuteException(executor.getName() + " can't execute it");
+}
+
 std::ostream&	operator<<(std::ostream& out, const ShrubberyCreationForm& src)
 {
-	(void)out;
-	(void)src;
+	out << src.getName() << " Shrubbery  is ";
+	out << (src.isSigned() ? "signed" : "not signed");
+	out << "\nSign grade: " << src.getSignGrade();
+	out << "\nExecute grade: " << src.getExecuteGrade() << std::endl;
 	return (out);
 }

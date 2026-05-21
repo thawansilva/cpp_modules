@@ -32,7 +32,7 @@ public:
 	//Member Functions
 	bool			isSigned(void) const;
 	void			beSigned(const Bureaucrat &b);
-	virtual			execute(Bureaucrat const &executor) const = 0;
+	virtual void	execute(Bureaucrat const &executor) const;
 
 	// Getters & Setters
 	std::string		getName(void) const;
@@ -42,6 +42,17 @@ public:
 	void			setExecuteGrade(unsigned int grade);
 
 	// Exception
+	class ExecuteException : public std::exception
+	{
+		const std::string	&_msg;
+		public:
+			ExecuteException(const std::string msg): _msg(msg) {}
+			virtual const char	*what() const throw()
+			{
+				return (_msg);
+			}
+	};
+
 	class GradeTooHighException : public std::exception
 	{
 		public:

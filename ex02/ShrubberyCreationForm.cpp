@@ -6,23 +6,23 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 18:56:05 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/19 19:22:25 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/05/21 20:24:51 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ShrubberyCreationForm.hpp"
-#include <fstream.h>
+#include <fstream>
 
-ShrubberyCreationForm::ShrubberyCreationForm(): Form("Default", 145, 137, false)
+ShrubberyCreationForm::ShrubberyCreationForm(): AForm("ShruberyCreationDefault", 145, 137), _target("Default target")
 {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string &name): Form(name, 145, 137, false)
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target): AForm("ShrubberyCreationForm", 145, 137), _target(target)
 {}
 
 ShrubberyCreationForm::~ShrubberyCreationForm()
 {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& src)
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& src): AForm("ShruberyCreationForm", 145, 137), _target(src.getTarget())
 {
 	*this = src;
 }
@@ -36,38 +36,43 @@ ShrubberyCreationForm&	ShrubberyCreationForm::operator=(const ShrubberyCreationF
 
 void	ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
-	if (this->isSigned() && executor.getExecuteGrade() < this->getExecuteGrade())
+	if (!this->isSigned())
+		throw AForm::NotSignedException();
+	else if (executor.getGrade() > this->getExecuteGrade())
+		throw AForm::GradeTooLowException();
+
+	std::ofstream	outfile(getTarget().append("_shrubbery").c_str());
+	if (outfile.is_open())
 	{
-		std::fstream	outfile(this->getName().append("_shrubbery").c_str());
-		if (file.is_open())
+		for (int i = 0; i < 5; i++)
 		{
-			for (int i = 0; i < 5; i++)
-			{
-				outfile <<
-					"         v" << std::endl <<
-					"        >X<" << std::endl <<
-					"         A" << std::endl <<
-					"        d$b" << std::endl <<
-					"      .d\\$$b." << std::endl <<
-					"    .d$i$$\\$$b." << std::endl <<
-					"       d$$@b" << std::endl <<
-					"      d\\$$$ib" << std::endl <<
-					"    .d$$$\\$$$b" << std::endl <<
-					"  .d$$@$$$$\\$$ib." << std::endl <<
-					"      d$$i$$b" << std::endl <<
-					"     d\\$$$$@$b" << std::endl <<
-					"  .d$@$$\\$$$$$@b." << std::endl <<
-					".d$$$$i$$$\\$$$$$$b." << std::endl <<
-					"        ###" << std::endl <<
-					"        ###" << std::endl <<
-					"        ###" << std::endl <<
-					std::endl;
-			}
-			outfile.close();
+			outfile <<
+				"         v" << std::endl <<
+				"        >X<" << std::endl <<
+				"         A" << std::endl <<
+				"        d$b" << std::endl <<
+				"      .d\\$$b." << std::endl <<
+				"    .d$i$$\\$$b." << std::endl <<
+				"       d$$@b" << std::endl <<
+				"      d\\$$$ib" << std::endl <<
+				"    .d$$$\\$$$b" << std::endl <<
+				"  .d$$@$$$$\\$$ib." << std::endl <<
+				"      d$$i$$b" << std::endl <<
+				"     d\\$$$$@$b" << std::endl <<
+				"  .d$@$$\\$$$$$@b." << std::endl <<
+				".d$$$$i$$$\\$$$$$$b." << std::endl <<
+				"        ###" << std::endl <<
+				"        ###" << std::endl <<
+				"        ###" << std::endl <<
+				std::endl;
 		}
-		return ;
+		outfile.close();
 	}
-	throw Form::ExecuteException(executor.getName() + " can't execute it");
+}
+
+std::string	ShrubberyCreationForm::getTarget() const
+{
+	return (_target);
 }
 
 std::ostream&	operator<<(std::ostream& out, const ShrubberyCreationForm& src)

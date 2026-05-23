@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:58:09 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/17 18:29:33 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/05/21 18:20:53 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ class AForm;
 
 class Bureaucrat
 {
+	const std::string	_name;
+	unsigned int		_grade;
 public:
 	Bureaucrat();
 	Bureaucrat(const std::string &name);
@@ -30,7 +32,7 @@ public:
 	void			incrementGrade(void);
 	void			decrementGrade(void);
 	void			signForm(AForm &form);
-	virtual void	executeForm(AForm const &form) const;
+	void			executeForm(AForm const &form) const;
 
 	// Getters & Setters
 	std::string		getName(void) const;
@@ -55,10 +57,6 @@ public:
 				return ("The grade is too low");
 			}
 	};
-
-private:
-	const std::string	_name;
-	unsigned int		_grade;
 };
 
 std::ostream&	operator<<(std::ostream& out, const Bureaucrat& src);

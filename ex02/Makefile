@@ -1,8 +1,9 @@
-NAME = bureaucrat_with_forms
+NAME = bureaucrat_execute
 
 CC := c++
 CPPFLAGS := -Wall -Werror -Wextra -std=c++98 -g2
-SRC := main.cpp Bureaucrat.cpp Form.cpp
+SRC := main.cpp Bureaucrat.cpp AForm.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp PresidentialPardonForm.cpp
+
 OBJS := $(SRC:%.cpp=%.o)
 
 RM := rm -fr

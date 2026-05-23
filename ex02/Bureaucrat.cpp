@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:58:13 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/17 16:15:25 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/05/21 20:18:37 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ unsigned int	Bureaucrat::getGrade(void) const
 	return (_grade);
 }
 
-void			Bureaucrat::signForm(Form &form)
+void			Bureaucrat::signForm(AForm &form)
 {
 	try
 	{
 		form.beSigned(*this);
-		std::cout << form.getName() << " was signed by ";
-		std::cout << getName() << std::endl;
+		std::cout << getName() << " signed ";
+		std::cout << form.getName() << std::endl;
 	}
 	catch (std::exception &e)
 	{
@@ -105,7 +105,7 @@ void	Bureaucrat::executeForm(AForm const &form) const
 	try
 	{
 		form.execute(*this);
-		std::cout << this->getName() << " executed " << form.getName()
+		std::cout << this->getName() << " executed " << form.getName();
 		std::cout << std::endl;
 	}
 	catch(std::exception &e)

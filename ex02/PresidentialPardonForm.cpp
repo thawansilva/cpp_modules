@@ -6,24 +6,22 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 18:55:43 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/19 19:10:12 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/05/21 20:21:13 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm(): _name("Default"),
-	_signGrade(25), _executeGrade(5), _isSigned(false)
+PresidentialPardonForm::PresidentialPardonForm(): AForm("PresidentialPardonForm Default", 25, 5), _target("Default target")
 {}
 
-PresidentialPardonForm::PresidentialPardonForm(const std::string &name):
-	_name(name), _signGrade(25), _executeGrade(5), _isSigned(false)
+PresidentialPardonForm::PresidentialPardonForm(const std::string &target): AForm("PresidentialPardonForm", 25, 5), _target(target)
 {}
 
 PresidentialPardonForm::~PresidentialPardonForm()
-{ }
+{}
 
-PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& src)
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& src): AForm("PresidentialPardonForm Copy", 25, 5), _target(src.getTarget())
 {
 	*this = src;
 }
@@ -37,13 +35,17 @@ PresidentialPardonForm&	PresidentialPardonForm::operator=(const PresidentialPard
 
 void	PresidentialPardonForm::execute(Bureaucrat const &executor) const
 {
-	if (this->isSigned() && executor.getExecuteGrade() < this->getExecuteGrade())
-	{
-		std::cout << this->getName() << " has been pardoned by Zaphod Beeblebrox"
-		std::cout << std::endl;
-		return ;
-	}
-	throw AForm::ExecuteException(this->getName() + " was not pardoned.");
+	if (!this->isSigned())
+		throw AForm::NotSignedException();
+	else if (executor.getGrade() > this->getExecuteGrade())
+		throw AForm::GradeTooLowException();
+	std::cout << getTarget() << " has been pardoned by Zaphod Beeblebrox";
+	std::cout << std::endl;
+}
+
+std::string	PresidentialPardonForm::getTarget() const
+{
+	return (_target);
 }
 
 std::ostream&	operator<<(std::ostream& out, const PresidentialPardonForm& src)

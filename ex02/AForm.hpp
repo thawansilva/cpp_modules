@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:58:16 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/19 19:04:23 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/05/21 18:42:58 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,24 @@ public:
 	AForm& operator=(const AForm& src);
 
 	//Member Functions
-	bool			isSigned(void) const;
-	void			beSigned(const Bureaucrat &b);
-	virtual void	execute(Bureaucrat const &executor) const;
+	bool				isSigned(void) const;
+	void				beSigned(const Bureaucrat &b);
+	virtual void		execute(Bureaucrat const &executor) const = 0;
 
 	// Getters & Setters
-	std::string		getName(void) const;
-	unsigned int	getSignGrade(void) const;
-	void			setSignGrade(unsigned int grade);
-	unsigned int	getExecuteGrade(void) const;
-	void			setExecuteGrade(unsigned int grade);
+	std::string			getName(void) const;
+	unsigned int		getSignGrade(void) const;
+	void				setSignGrade(unsigned int grade);
+	unsigned int		getExecuteGrade(void) const;
+	void				setExecuteGrade(unsigned int grade);
 
 	// Exception
-	class ExecuteException : public std::exception
+	class NotSignedException : public std::exception
 	{
-		const std::string	&_msg;
 		public:
-			ExecuteException(const std::string msg): _msg(msg) {}
 			virtual const char	*what() const throw()
 			{
-				return (_msg);
+				return ("The form is not signed.");
 			}
 	};
 

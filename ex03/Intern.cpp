@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 16:26:53 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/23 17:49:57 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/05/24 15:30:22 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,42 @@ Intern::Intern(const Intern& src)
 
 Intern&	Intern::operator=(const Intern& src)
 {
-	if (this != &src)
-		*this = src;
+	(void)src;
 	return *this;
+}
+
+static AForm *makeShrubberyForm(const std::string &target)
+{
+	return (new ShrubberyCreationForm(target));
+}
+
+static AForm *makeRobotomyForm(const std::string &target)
+{
+	return (new RobotomyRequestForm(target));
+}
+
+static AForm *makePresidentialPardonForm(const std::string &target)
+{
+	return (new PresidentialPardonForm(target));
 }
 
 AForm	*Intern::makeForm(const std::string &name, const std::string &target)
 {
-	AForm	*form;
+	const std::string forms[] = { 
+		"ShrubberyCreationForm", "RobotomyRequestForm", "PresidentialPardonForm"
+	};
+	AForm* (*formsMethods[])(const std::string &name) = {
+		&makeShrubberyForm, &makeRobotomyForm, &makePresidentialPardonForm
+	};
+	int size = sizeof(forms) / sizeof(forms[0]);
 
-	if (name.compare("ShrubberyCreationForm") == 0)
-		form = new ShrubberyCreationForm(target);
-	else if (name.compare("RobotomyRequestForm") == 0)
-		form = new RobotomyRequestForm(target);
-	else if (name.compare("PresidentialPardonForm") == 0)
-		form = new PresidentialPardonForm(target);
-	else
+	for (int i = 0; i < size; ++i)
 	{
-		std::cout << "Intern could not create a form called " << name << std::endl;
-		return NULL;
+		if (name == forms[i])
+			return formsMethods[i](target);
 	}
-	return form;
+	std::cout << "Intern could not create a form called " << name << std::endl;
+	return NULL;
 }
 
 std::ostream&	operator<<(std::ostream& out, const Intern& src)

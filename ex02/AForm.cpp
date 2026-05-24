@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:58:22 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/17 17:43:12 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/05/24 15:03:12 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void			AForm::beSigned(const Bureaucrat &signer)
 	else if (!isSigned())
 	{
 		_isSigned = true;
-		std::cout << getName() << " AForm was signed by ";
+		std::cout << getName() << " AForm successfully signed by ";
 		std::cout << signer.getName() << std::endl;
 	}
 	else

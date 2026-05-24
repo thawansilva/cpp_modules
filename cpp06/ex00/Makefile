@@ -1,8 +1,8 @@
-NAME = bureaucrat
+NAME = convert
 
 CC := c++
 CPPFLAGS := -Wall -Werror -Wextra -std=c++98
-SRC := main.cpp
+SRC := main.cpp ScalarConverter.cpp
 OBJS := $(SRC:%.cpp=%.o)
 
 RM := rm -fr

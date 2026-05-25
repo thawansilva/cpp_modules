@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 16:26:53 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/24 15:30:22 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/05/25 14:57:40 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static AForm *makePresidentialPardonForm(const std::string &target)
 AForm	*Intern::makeForm(const std::string &name, const std::string &target)
 {
 	const std::string forms[] = { 
-		"ShrubberyCreationForm", "RobotomyRequestForm", "PresidentialPardonForm"
+		"ShrubberyCreation", "RobotomyRequest", "PresidentialPardon"
 	};
 	AForm* (*formsMethods[])(const std::string &name) = {
 		&makeShrubberyForm, &makeRobotomyForm, &makePresidentialPardonForm
@@ -60,7 +60,10 @@ AForm	*Intern::makeForm(const std::string &name, const std::string &target)
 	for (int i = 0; i < size; ++i)
 	{
 		if (name == forms[i])
+		{
+			std::cout << "Intern creates " << name << " Form" << std::endl;
 			return formsMethods[i](target);
+		}
 	}
 	std::cout << "Intern could not create a form called " << name << std::endl;
 	return NULL;

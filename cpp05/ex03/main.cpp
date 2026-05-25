@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:58:01 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/23 18:06:33 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/05/25 14:58:59 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ int main()
 	separator("VALID FORM CREATION");
 
 	AForm* shrubbery =
-		someRandomIntern.makeForm("ShrubberyCreationForm", "home");
+		someRandomIntern.makeForm("ShrubberyCreation", "home");
 
 	AForm* robotomy =
-		someRandomIntern.makeForm("RobotomyRequestForm", "Bender");
+		someRandomIntern.makeForm("RobotomyRequest", "Bender");
 
 	AForm* pardon =
-		someRandomIntern.makeForm("PresidentialPardonForm", "Arthur Dent");
+		someRandomIntern.makeForm("PresidentialPardon", "Arthur Dent");
 
 	if (shrubbery)
 		std::cout << *shrubbery << std::endl;
@@ -94,7 +94,7 @@ int main()
 		Bureaucrat low("LowGuy", 150);
 
 		AForm* test =
-			someRandomIntern.makeForm("RobotomyRequestForm", "target");
+			someRandomIntern.makeForm("RobotomyRequest", "target");
 
 		if (test)
 		{
@@ -114,7 +114,7 @@ int main()
 	try
 	{
 		AForm* unsignedForm =
-			someRandomIntern.makeForm("ShrubberyCreationForm", "garden");
+			someRandomIntern.makeForm("ShrubberyCreation", "garden");
 
 		if (unsignedForm)
 			boss.executeForm(*unsignedForm);

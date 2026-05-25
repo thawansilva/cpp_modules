@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 15:58:16 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/21 18:42:58 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/05/25 16:40:44 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ public:
 	// Getters & Setters
 	std::string			getName(void) const;
 	unsigned int		getSignGrade(void) const;
-	void				setSignGrade(unsigned int grade);
 	unsigned int		getExecuteGrade(void) const;
-	void				setExecuteGrade(unsigned int grade);
 
 	// Exception
 	class NotSignedException : public std::exception

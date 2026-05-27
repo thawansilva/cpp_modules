@@ -3,5 +3,8 @@
 class Data
 {
 public:
-	char *data;
+	Data();
+	virtual ~Data();
+
+	const char *data;
 };

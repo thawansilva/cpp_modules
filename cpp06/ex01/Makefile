@@ -2,7 +2,7 @@ NAME = serialization
 
 CC := c++
 CPPFLAGS := -Wall -Werror -Wextra -std=c++98
-SRC := main.cpp Serializer.cpp
+SRC := main.cpp Serializer.cpp Data.cpp
 OBJS := $(SRC:%.cpp=%.o)
 
 RM := rm -fr

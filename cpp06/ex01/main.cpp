@@ -14,12 +14,13 @@
 
 int main(void)
 {
-	Data *data = 0;
+	Data data;
 
-	uintptr_t ptr = Serializer::serialize(data);
+	uintptr_t ptr = Serializer::serialize(&data);
 	Data *res = Serializer::deserialize(ptr);
 
 	std::cout << &ptr << std::endl;
-	std::cout << &res << std::endl;
+	std::cout << &data << std::endl;
+	std::cout << res << std::endl;
 	return (0);
 }

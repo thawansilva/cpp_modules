@@ -14,55 +14,67 @@
 
 void	print_int(double &num)
 {
-	if (std::isnan(num))
+	std::cout << "int: ";
+	if (std::isnan(num) || std::isinf(num))
 	{
-		std::cout << "int: impossible" << std::endl;
+		std::cout << "impossible" << std::endl;
 		return ;
 	}
-
-	int int_num = static_cast<int>(num);
-	std::cout << "int: " << int_num << std::endl;
-}
-
-void	print_double(double &num)
-{
-	double double_num = static_cast<double>(num);
-	if (std::isnan(num))
-	{
-		std::cout << "double: nan" << std::endl;
-		return ;
-	}
-
-	std::cout << "double: " << double_num << std::endl;
+	std::cout << static_cast<int>(num) << std::endl;
 }
 
 void	print_char(double &num)
 {
-	if (std::isnan(num))
+	std::cout << "char: ";
+	if (std::isnan(num) || num < 0.0 || std::isinf(num))
 	{
-		std::cout << "char: impossible" << std::endl;
+		std::cout << "impossible" << std::endl;
 		return ;
 	}
 
-	char ch = static_cast<char>(num);
-	if ((ch >= 0 && ch <= 31) || ch == 127)
+	if (num > 31 && num < 127)
 	{
-		std::cout << "char: Non displayable" << std::endl;
+		std::cout << '\'' << static_cast<char>(num) << '\'' << std::endl;
 		return ;
 	}
-	std::cout << "char: " << ch << std::endl;
+	std::cout << "Non displayable" << std::endl;
 }
 
 void	print_float(double &num)
 {
 	int float_num = static_cast<float>(num);
 
+	std::cout << "float: ";
 	if (std::isnan(num))
 	{
-		std::cout << "float: nanf" << std::endl;
+		std::cout << "nanf" << std::endl;
 		return ;
 	}
-	std::cout << "float: " << float_num << std::endl;
+	if (std::isinf(num))
+	{
+		if (num > 0)
+			std::cout << "+inf";
+		else
+			std::cout << "-inf";
+	}
+	else
+		std::cout << std::fixed << std::setprecision(1) << float_num;
+	std::cout << "f" << std::endl;
+}
+
+void	print_double(double &num)
+{
+	std::cout << "double: ";
+	if (std::isinf(num))
+	{
+		if (num > 0)
+			std::cout << "+inf";
+		else
+			std::cout << "-inf";
+	}
+	else
+		std::cout << std::fixed << std::setprecision(1) << num;
+	std::cout << std::endl;
 }
 
 void ScalarConverter::convert(const std::string &str)
@@ -82,9 +94,13 @@ void ScalarConverter::convert(const std::string &str)
 			std::cout <<  e.what() << std::endl;
 			return ;
 		}
-		if (*end != '\0')
+		if ((*end != '\0' && *end != 'f') || (*end != '\0' && *(end + 1) != '\0'))
 		{
-			
+			std::cout << "char: impossible\n";
+			std::cout << "int: impossible\n";
+			std::cout << "float: impossible\n";
+			std::cout << "double: impossible" << std::endl;
+			return ;
 		}
 	}
 	print_char(num);

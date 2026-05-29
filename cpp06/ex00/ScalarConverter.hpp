@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScalaConverter.hpp                                 :+:      :+:    :+:   */
+/*   ScalarConverter.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/24 12:55:12 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/24 12:59:03 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:53:19 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 
 class ScalarConverter
 {
-
+	ScalarConverter();
+	~ScalarConverter();
+	ScalarConverter(const ScalarConverter &src);
+	ScalarConverter &operator=(const ScalarConverter &src);
 public:
 	static void convert(const std::string &str);
 };

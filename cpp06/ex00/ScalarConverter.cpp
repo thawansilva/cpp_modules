@@ -6,13 +6,28 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/24 12:55:09 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/28 18:19:35 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/05/29 18:11:33 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
 
-void	print_int(double &num)
+ScalarConverter::ScalarConverter() {}
+
+ScalarConverter::~ScalarConverter() {}
+
+ScalarConverter::ScalarConverter(const ScalarConverter &src)
+{
+	*this = src;
+}
+
+ScalarConverter &ScalarConverter::operator=(const ScalarConverter &src)
+{
+	(void)src;
+	return *this;
+}
+
+static void	print_int(double &num)
 {
 	std::cout << "int: ";
 	if (std::isnan(num) || std::isinf(num))
@@ -23,7 +38,7 @@ void	print_int(double &num)
 	std::cout << static_cast<int>(num) << std::endl;
 }
 
-void	print_char(double &num)
+static void	print_char(double &num)
 {
 	std::cout << "char: ";
 	if (std::isnan(num) || num < 0.0 || std::isinf(num))
@@ -40,7 +55,7 @@ void	print_char(double &num)
 	std::cout << "Non displayable" << std::endl;
 }
 
-void	print_float(double &num)
+static void	print_float(double &num)
 {
 	std::cout << "float: ";
 	if (std::isnan(num))
@@ -60,7 +75,7 @@ void	print_float(double &num)
 	std::cout << "f" << std::endl;
 }
 
-void	print_double(double &num)
+static void	print_double(const double &num)
 {
 	std::cout << "double: ";
 	if (std::isinf(num))

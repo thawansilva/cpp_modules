@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScalaConverter.cpp                                 :+:      :+:    :+:   */
+/*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/24 12:55:09 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/24 16:01:46 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/05/28 18:19:35 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	print_char(double &num)
 
 void	print_float(double &num)
 {
-	int float_num = static_cast<float>(num);
-
 	std::cout << "float: ";
 	if (std::isnan(num))
 	{
@@ -58,7 +56,7 @@ void	print_float(double &num)
 			std::cout << "-inf";
 	}
 	else
-		std::cout << std::fixed << std::setprecision(1) << float_num;
+		std::cout << std::fixed << std::setprecision(1) << static_cast<float>(num);
 	std::cout << "f" << std::endl;
 }
 

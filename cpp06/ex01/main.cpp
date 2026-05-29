@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/24 12:54:06 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/28 21:58:10 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/05/29 16:08:41 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ int main(void)
 
 	std::cout << serialize_ptr << std::endl;
 	std::cout << reinterpret_cast<uintptr_t>(deserialize_ptr) << std::endl;
-	std::cout << deserialize_ptr << std::endl;
 	return (0);
 }

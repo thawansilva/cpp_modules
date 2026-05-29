@@ -44,3 +44,5 @@ A collection of C++ programming exercises covering fundamental concepts and obje
 
 ### [CPP06](cpp06/) - Type Casting
 - [ex00 - Static Cast](cpp06/ex00/)
+- [ex01 - Reinterpret Cast](cpp06/ex01/)
+- [ex02 - Dynamic Cast](cpp06/ex02/)

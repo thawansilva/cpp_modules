@@ -1,3 +1,5 @@
+#pragma once
+
 template <typename T>
 Array<T>::Array(): _arr(0), _size(0) {}
 
@@ -14,15 +16,15 @@ Array<T>::~Array()
 }
 
 template <typename T>
-Array<T>::Array(const Array& src)
+Array<T>::Array(const Array<T>& src): _arr(0), _size(src.size())
 {
 	*this = src;
 }
 
 template <typename T>
-Array<T>& Array<T>::operator=(const Array& src)
+Array<T>& Array<T>::operator=(const Array<T>& src)
 {
-	if (this == &src)
+	if (this != &src)
 	{
 		this->setArray(src.size());
 		for (unsigned int i = 0; i < src.size(); ++i)
@@ -55,8 +57,3 @@ void	Array<T>::setArray(unsigned int n)
 
 template <typename T>
 unsigned int	Array<T>::size() const { return _size; }
-
-//std::ostream&	operator<<(std::ostream& out, const Array<T>& src)
-//{
-//	return (out);
-//}

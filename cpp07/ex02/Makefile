@@ -1,7 +1,7 @@
 NAME = array
 
 CC := c++
-CPPFLAGS := -Wall -Werror -Wextra -std=c++98
+CPPFLAGS := -Wall -Werror -Wextra -g2 -std=c++98
 SRC := main.cpp
 OBJS := $(SRC:%.cpp=%.o)
 

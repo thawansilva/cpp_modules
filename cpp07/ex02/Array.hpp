@@ -24,5 +24,3 @@ public:
 };
 
 #include "Array.tpp"
-
-//std::ostream&	operator<<(std::ostream& out, const Array& src);

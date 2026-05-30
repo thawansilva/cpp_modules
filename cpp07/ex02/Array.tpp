@@ -4,16 +4,11 @@ template <typename T>
 Array<T>::Array(): _arr(0), _size(0) {}
 
 template <typename T>
-Array<T>::Array(unsigned int n): _size(n)
-{
-	_arr = new T[n]();
-}
+Array<T>::Array(unsigned int n): _arr(new T[n]())_size(n)
+{}
 
 template <typename T>
-Array<T>::~Array()
-{
-	delete []_arr;
-}
+Array<T>::~Array() { delete []_arr; }
 
 template <typename T>
 Array<T>::Array(const Array<T>& src): _arr(0), _size(src.size())
@@ -42,10 +37,7 @@ T &Array<T>::operator[](unsigned int idx) const
 }
 
 template <typename T>
-void	Array<T>::setSize(unsigned int n)
-{
-	_size = n;
-}
+void	Array<T>::setSize(unsigned int n) { _size = n; }
 
 template <typename T>
 void	Array<T>::setArray(unsigned int n)

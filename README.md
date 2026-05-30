@@ -46,3 +46,8 @@ A collection of C++ programming exercises covering fundamental concepts and obje
 - [ex00 - Static Cast](cpp06/ex00/)
 - [ex01 - Reinterpret Cast](cpp06/ex01/)
 - [ex02 - Dynamic Cast](cpp06/ex02/)
+
+### [CPP07](cpp07/) - Templates
+- [ex00 - Templates](cpp07/ex00/)
+- [ex01 - Iter Templates](cpp07/ex01/)
+- [ex02 - Array Class Templates](cpp07/ex02/)

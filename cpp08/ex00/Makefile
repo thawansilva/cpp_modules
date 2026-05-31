@@ -1,7 +1,7 @@
 NAME = easy_find
 
 CC := c++
-CPPFLAGS := -Wall -Werror -Wextra -std=c++98
+CPPFLAGS := -Wall -Werror -Wextra
 SRC := main.cpp
 OBJS := $(SRC:%.cpp=%.o)
 

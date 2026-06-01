@@ -1,8 +1,8 @@
-NAME = easy_find
+NAME = ex01
 
 CC := c++
 CPPFLAGS := -Wall -Werror -Wextra
-SRC := main.cpp
+SRC := main.cpp Span.cpp
 OBJS := $(SRC:%.cpp=%.o)
 
 RM := rm -fr

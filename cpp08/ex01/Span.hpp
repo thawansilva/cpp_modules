@@ -11,9 +11,9 @@ public:
 	Span& operator=(const Span& other);
 
 	//Member Functions
-	void shortestSpan() const;
-	void longestSpan() const;
-	void addNumber(int num) const;
+	int		shortestSpan() const;
+	int		longestSpan() const;
+	void	addNumber(int num) const;
 	// Getters & Setters
 
 	class FullSpanException: public std::exception

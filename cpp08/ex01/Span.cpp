@@ -21,20 +21,42 @@ Span&	Span::operator=(const Span& other)
 {
 	if (this != &other)
 	{
-		_value = other._value;
 	}
 	return *this;
 }
 
-int		Span::getValue(void) const
+void		Span::addNumber(int num) const
 {
-	return _value;
+	// if span is not empty
+	// 		throw Exception
+	// add element to span
 }
 
-void	Span::setValue(int value)
+int		Span::shortestSpan() const
 {
-	_value = value;
+	// if span.size() <= 0
+	// 		throw Exception
+	// calculate shortest span
+	return 1;
 }
+
+int		Span::longestSpan() const
+{
+	// if span.size() <= 0
+	// 		throw Exception
+	// calculate longest span
+	return 1;
+}
+
+//int		Span::getValue(oid) const
+//{
+//	return _value;
+//}
+//
+//void	Span::setValue(int value)
+//{
+//	_value = value;
+//}
 
 //std::ostream&	operator<<(std::ostream& out, const Span& src)
 //{

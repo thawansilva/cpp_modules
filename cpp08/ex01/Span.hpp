@@ -1,23 +1,29 @@
 #pragma once
 #include <iostream>
+#include <vector>
+#include <algorithm>
 
 class Span
 {
-public:
+	std::vector<int>	_vec;
+	std::size_t			_size;
+
 	Span();
-	Span(unsigned int N);
+
+public:
+	Span(const unsigned int N);
 	~Span();
-	Span(const Span& other);
-	Span& operator=(const Span& other);
+	Span(const Span& src);
+	Span& operator=(const Span& src);
 
 	//Member Functions
-	int		shortestSpan() const;
-	int		longestSpan() const;
-	void	addNumber(int num) const;
-	// Getters & Setters
+	std::size_t			shortestSpan(void) const;
+	std::size_t			longestSpan(void) const;
+	void				addNumber(const int num);
 
-	class FullSpanException: public std::exception
-	{};
+	// Getters & Setters
+	std::size_t			getSize(void) const;
+	std::vector<int>	getVector(void) const;
 };
 
-//std::ostream&	operator<<(std::ostream& out, const Span& src);
+std::ostream&	operator<<(std::ostream& out, const Span& src);

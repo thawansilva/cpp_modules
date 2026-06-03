@@ -11,7 +11,7 @@ class Span
 	Span();
 
 public:
-	Span(const unsigned int N);
+	explicit Span(const unsigned int N);
 	~Span();
 	Span(const Span& src);
 	Span& operator=(const Span& src);
@@ -23,7 +23,15 @@ public:
 
 	// Getters & Setters
 	std::size_t			getSize(void) const;
-	std::vector<int>	getVector(void) const;
+	const std::vector<int>	&getVector(void) const;
+
+	template < typename T >
+	void	addRangeNumber(const T &begin, const T &end)
+	{
+		if (_vec.size() + std::distance(begin, end) > _size)
+			throw std::runtime_error("Error: Not enough Span capacity");
+		_vec.insert(_vec.end(), begin, end);
+	}
 };
 
 std::ostream&	operator<<(std::ostream& out, const Span& src);

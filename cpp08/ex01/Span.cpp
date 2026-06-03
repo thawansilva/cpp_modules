@@ -56,7 +56,7 @@ std::size_t	Span::longestSpan(void) const
 
 std::size_t	Span::getSize(void) const { return (_size); }
 
-std::vector<int>	Span::getVector(void) const { return _vec; }
+const std::vector<int>	&Span::getVector(void) const { return _vec; }
 
 std::ostream&	operator<<(std::ostream& out, const Span& src)
 {

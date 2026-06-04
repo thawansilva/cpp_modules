@@ -2,7 +2,7 @@ NAME = ex02
 
 CC := c++
 CPPFLAGS := -Wall -Werror -Wextra
-SRC := main.cpp Span.cpp
+SRC := main.cpp
 OBJS := $(SRC:%.cpp=%.o)
 
 RM := rm -fr

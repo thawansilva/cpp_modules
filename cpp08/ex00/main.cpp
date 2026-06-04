@@ -6,53 +6,65 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 13:54:29 by thaperei          #+#    #+#             */
-/*   Updated: 2026/05/31 17:56:51 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/06/04 19:45:21 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "easyfind.hpp"
 #include <iostream>
+#include <vector>
+#include <list>
+#include <deque>
+
+static void separator(const std::string& title)
+{
+	std::cout << "\n===== " << title << " =====\n";
+}
 
 int main()
 {
-	// Array container
-	std::cout << "=== ARRAY ===" << std::endl;
-	std::array<int, 10> arr = { 0, 1, 2, 3, 4, 5, 6};
+	separator("VECTOR");
 
-	int array_result = easyfind<std::array<int, 10>>(arr, 3);
-	if (array_result)
-		std::cout << "Number found" << std::endl;
-	else
-		std::cout << "Number not found" << std::endl;
+	std::vector<int> vec;
+	vec.push_back(10);
+	vec.push_back(20);
+	vec.push_back(30);
+	vec.push_back(40);
 
-	// Vector container
-	std::cout << "=== VECTOR ===" << std::endl;
-	std::vector<int> vec = { 0, 1, 2, 3, 4, 5, 6};
+	std::cout << "Searching 20..." << std::endl;
+	if (easyfind(vec, 20))
+		std::cout << "Found!" << std::endl;
 
-	int vec_result = easyfind<std::vector<int>>(vec, 10);
-	if (vec_result)
-		std::cout << "Number found" << std::endl;
-	else
-		std::cout << "Number not found" << std::endl;
+	std::cout << "Searching 99..." << std::endl;
+	if (easyfind(vec, 99))
+		std::cout << "Found!" << std::endl;
 
-	// List container
-	std::cout << "=== LIST ===" << std::endl;
-	std::list<int> list = { 0, 1, 2, 3, 4, 5, 6};
+	separator("LIST");
 
-	int list_result = easyfind<std::list<int>>(list, 4);
-	if (list_result)
-		std::cout << "Number found" << std::endl;
-	else
-		std::cout << "Number not found" << std::endl;
+	std::list<int> lst;
+	lst.push_back(-10);
+	lst.push_back(-20);
+	lst.push_back(-30);
 
-	// Dequeue container
-	std::cout << "=== DEQUEUE ===" << std::endl;
-	std::deque<int> d = { 0, 1, 2, 3, 4, 5, 6};
+	if (easyfind(vec, -20))
+		std::cout << "Found!" << std::endl;
 
-	int deque_result = easyfind<std::deque<int>>(d, -1);
-	if (deque_result)
-		std::cout << "Number found" << std::endl;
-	else
-		std::cout << "Number not found" << std::endl;
+	separator("DEQUE");
+
+	std::deque<int> dq;
+	dq.push_back(1);
+	dq.push_back(1);
+	dq.push_back(1);
+	dq.push_back(42);
+
+	if (easyfind(dq, 42))
+		std::cout << "Found 42" << std::endl;
+
+	separator("EMPTY CONTAINER");
+
+	std::vector<int> empty;
+
+	if (easyfind(empty, 5))
+		std::cout << "Found!" << std::endl;
 	return 0;
 }

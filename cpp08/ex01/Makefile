@@ -1,7 +1,7 @@
 NAME = ex01
 
 CC := c++
-CPPFLAGS := -Wall -Werror -Wextra
+CPPFLAGS := -Wall -Werror -Wextra -std=c++98
 SRC := main.cpp Span.cpp
 OBJS := $(SRC:%.cpp=%.o)
 

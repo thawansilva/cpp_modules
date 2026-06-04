@@ -62,14 +62,14 @@ std::ostream&	operator<<(std::ostream& out, const Span& src)
 {
 	std::vector<int> vec = src.getVector();
 	out << "{ ";
-	for (auto i : vec)
+	for (std::vector<int>::const_iterator i = vec.begin(); i != vec.end(); ++i)
 	{
-		if (i == (*(vec.end() - 1)))
+		if (*i == (*(vec.end() - 1)))
 		{
-			out << i;
+			out << *i;
 			break ;
 		}
-		out << i << ", ";
+		out << *i << ", ";
 	}
 	out << " }";
 	return (out);

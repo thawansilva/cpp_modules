@@ -6,7 +6,7 @@
 /*   By: thaperei <thaperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 20:43:42 by thaperei          #+#    #+#             */
-/*   Updated: 2026/06/04 14:37:58 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/06/04 20:04:54 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ class MutantStack : public std::stack<T>
 {
 
 public:
-	MutantStack() {}
+	MutantStack(): std::stack<T>() {}
 	~MutantStack() {}
-	MutantStack(const MutantStack& src) { this = src; }
+	MutantStack(const MutantStack& src): std::stack<T>(src) {}
 	MutantStack& operator=(const MutantStack& src)
 	{
 		if (this != &src)
-			this = src;
+			std::stack<T>::operator=(src);
 		return *this;
 	}
 

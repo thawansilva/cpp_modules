@@ -51,3 +51,8 @@ A collection of C++ programming exercises covering fundamental concepts and obje
 - [ex00 - Templates](cpp07/ex00/)
 - [ex01 - Iter Templates](cpp07/ex01/)
 - [ex02 - Array Class Templates](cpp07/ex02/)
+
+### [CPP08](cpp08/) - STL
+- [ex00 - Easy find](cpp08/ex00/)
+- [ex01 - Span](cpp08/ex01/)
+- [ex02 - MutantStack](cpp08/ex02/)

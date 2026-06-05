@@ -6,7 +6,7 @@
 /*   By: thaperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/31 13:54:29 by thaperei          #+#    #+#             */
-/*   Updated: 2026/06/04 20:27:56 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/06/05 16:22:26 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,66 +17,59 @@
 
 int main()
 {
+	std::cout << "=== Teste básico ===" << std::endl;
+
+	Span sp(5);
+
+	sp.addNumber(6);
+	sp.addNumber(3);
+	sp.addNumber(17);
+	sp.addNumber(9);
+	sp.addNumber(11);
+
+	std::cout << "Shortest span: "
+		<< sp.shortestSpan() << std::endl;
+
+	std::cout << "Longest span: "
+		<< sp.longestSpan() << std::endl;
+
+	std::cout << "\n=== Teste overflow ===" << std::endl;
+
 	try
 	{
-		std::cout << "=== Teste básico ===" << std::endl;
-
-		Span sp(5);
-
-		sp.addNumber(6);
-		sp.addNumber(3);
-		sp.addNumber(17);
-		sp.addNumber(9);
-		sp.addNumber(11);
-
-		std::cout << "Shortest span: "
-			<< sp.shortestSpan() << std::endl;
-
-		std::cout << "Longest span: "
-			<< sp.longestSpan() << std::endl;
-
-		std::cout << "\n=== Teste overflow ===" << std::endl;
-
-		try
-		{
-			sp.addNumber(42);
-		}
-		catch (const std::exception &e)
-		{
-			std::cout << e.what() << std::endl;
-		}
-
-		std::cout << "\n=== Teste com poucos elementos ===" << std::endl;
-
-		Span small(2);
-		small.addNumber(1);
-
-		try
-		{
-			std::cout << small.shortestSpan() << std::endl;
-		}
-		catch (const std::exception &e)
-		{
-			std::cout << "Erro esperado: "
-				<< e.what() << std::endl;
-		}
-
-		std::cout << "\n=== Teste grande ===" << std::endl;
-
-		Span big(10000);
-
-		for (int i = 0; i < 10000; i++)
-			big.addNumber(i);
-
-		std::cout << "Shortest span: "
-			<< big.shortestSpan() << std::endl;
-
-		std::cout << "Longest span: "
-			<< big.longestSpan() << std::endl;
+		sp.addNumber(42);
 	}
 	catch (const std::exception &e)
 	{
-		std::cerr << "Erro: " << e.what() << std::endl;
+		std::cout << e.what() << std::endl;
 	}
+
+	std::cout << "\n=== Teste com poucos elementos ===" << std::endl;
+
+	Span small(2);
+	small.addNumber(1);
+
+	try
+	{
+		std::cout << small.shortestSpan() << std::endl;
+	}
+	catch (const std::exception &e)
+	{
+		std::cout << "Erro esperado: "
+			<< e.what() << std::endl;
+	}
+
+	std::cout << "\n=== Teste grande ===" << std::endl;
+
+	Span big(10000);
+
+	for (int i = 0; i < 10000; i++)
+		big.addNumber(i);
+
+	std::cout << "Shortest span: "
+		<< big.shortestSpan() << std::endl;
+
+	std::cout << "Longest span: "
+		<< big.longestSpan() << std::endl;
 	return 0;
 }

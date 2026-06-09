@@ -1,20 +1,20 @@
 #pragma once
 #include <iostream>
+#include <map>
 #include <fstream>
 
 class BitcoinExchange
 {
 private:
-	std::ifstream _input;
-	std::ifstream _dbDefault;
+	std::map<std::string, double>	_data;
+
 public:
 	BitcoinExchange();
-	explicit BitcoinExchange(const char *db);
 	~BitcoinExchange();
 	BitcoinExchange(const BitcoinExchange& src);
 	BitcoinExchange& operator=(const BitcoinExchange& src);
 
 	//Member Functions
+	void	setData(std::string &key, double value);
+	void	readInput(std::string &input);
 };
-
-std::ostream&	operator<<(std::ostream& out, const BitcoinExchange& src);

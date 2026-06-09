@@ -20,6 +20,13 @@ int main(int argc, char **argv)
 		std::cerr << "Usage: ./btc <database>" << std::endl;
 		return (1);
 	}
-//	BitcoinExchange btc();
+	try
+	{
+		BitcoinExchange btc;
+	}
+	catch(std::exception &e)
+	{
+		std::cerr <<  e.what() << std::endl;
+	}
 	return (0);
 }

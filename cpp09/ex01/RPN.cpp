@@ -6,7 +6,7 @@
 /*   By: thaperei <thaperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 17:47:11 by thaperei          #+#    #+#             */
-/*   Updated: 2026/06/10 19:07:59 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/06/10 20:35:19 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ RPN::RPN()
 RPN::~RPN()
 {}
 
-RPN::RPN(const RPN& src)
-{
-	*this = src;
-}
+RPN::RPN(const RPN& src) { *this = src; }
 
 RPN&	RPN::operator=(const RPN& src)
 {
@@ -61,25 +58,14 @@ void	RPN::calculate(std::string opStr)
 		int result;
 		if (token.length() == 1 && std::isdigit(token[0]))
 			stack.push(std::atoi(token.c_str()));
-		else if (isOperator(token))
+		else if (isOperator(token) && stack.size() >= 2)
 		{
-			if (stack.size() == 2)
-			{
-				int	firstValue = stack.top();
-				stack.pop();
-				int	secondValue = stack.top();
-				stack.pop();
-				result = doOperation(token, firstValue, secondValue);
-				stack.push(result);
-				continue ;
-			}
-			while (stack.size() != 1)
-			{
-				int value = stack.top();
-				stack.pop();
-				(void) value;
-			}
-			break ;
+			int	firstValue = stack.top();
+			stack.pop();
+			int	secondValue = stack.top();
+			stack.pop();
+			result = doOperation(token, firstValue, secondValue);
+			stack.push(result);
 		}
 		else if (std::isspace(token[0]))
 			continue;

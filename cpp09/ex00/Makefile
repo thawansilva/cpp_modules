@@ -1,8 +1,8 @@
-NAME = easy_find
+NAME = btc
 
 CC := c++
-CPPFLAGS := -Wall -Werror -Wextra -std=c++98
-SRC := main.cpp
+CPPFLAGS := -Wall -Werror -Wextra -std=c++98 -g2
+SRC := main.cpp BitcoinExchange.cpp
 OBJS := $(SRC:%.cpp=%.o)
 
 RM := rm -fr

@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <map>
-#include <fstream>
 
 class BitcoinExchange
 {
@@ -15,6 +14,6 @@ public:
 	BitcoinExchange& operator=(const BitcoinExchange& src);
 
 	//Member Functions
-	void	setData(std::string &key, double value);
-	void	readInput(std::string &input);
+	void	setData(const std::string &key, double value);
+	void	readInput(const std::string &input);
 };

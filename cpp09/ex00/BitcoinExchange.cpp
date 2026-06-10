@@ -58,34 +58,25 @@ static bool	is_leap_year(int year) {
 }
 
 static bool	isValidDate(const std::string& date_str) {
-    if (date_str.length() != 10) {
+    if (date_str.length() != 10 || date_str[4] != '-' || date_str[7] != '-')
         return false;
-    }
-    if (date_str[4] != '-' || date_str[7] != '-') {
-        return false;
-    }
 
     std::istringstream ss(date_str);
     int year, month, day;
     char dash1, dash2;
-
-    if (!(ss >> year >> dash1 >> month >> dash2 >> day)) {
+    if (!(ss >> year >> dash1 >> month >> dash2 >> day))
         return false;
-    }
 
-    if (year < 0 || month < 1 || month > 12 || day < 1 || day > 31) {
+    if (year < 2009 || month < 1 || month > 12 || day < 1 || day > 31)
         return false;
-    }
 
     int days_in_month[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-    if (month == 2 && is_leap_year(year)) {
+    if (month == 2 && is_leap_year(year))
         days_in_month[1] = 29;
-    }
 
-    if (day > days_in_month[month - 1]) {
-        return false; // Day exceeds max days for this month
-    }
+    if (day > days_in_month[month - 1])
+        return false;
 
     return true;
 }

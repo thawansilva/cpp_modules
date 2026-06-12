@@ -12,9 +12,15 @@
 
 #pragma once
 #include <iostream>
+#include <vector>
+#include <deque>
 
 class PmergeMe
 {
+	std::vector<int>	_vec;
+	std::deque<int>		_deq;
+	std::size_t			_num;
+
 public:
 	PmergeMe();
 	~PmergeMe();
@@ -22,4 +28,7 @@ public:
 	PmergeMe& operator=(const PmergeMe& src);
 
 	//Member Functions
+	void	VectorFJA(const std::string str);
+	void	DequeFJA(const std::string str);
+	int		GenerateJacobsthal(int n);
 };

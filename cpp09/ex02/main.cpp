@@ -19,7 +19,19 @@ int main(int argc, char **argv)
 		std::cerr << "Usage: ./PmergeMe <expression>" << std::endl;
 		return (1);
 	}
-	(void)argv;
-	PmergeMe pmergeme;
+	try
+	{
+		(void)argv;
+		PmergeMe pmergeme;
+		
+		std::cout << "Before: " << argv[1] << std::endl;
+		std::cout << "After: " << std::endl;
+		std::cout << "Time to process a range of 3000 elements with std:::vector : " << std::endl;
+		std::cout << "Time to process a range of 3000 elements with std:::deque : " << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
 	return (0);
 }

@@ -1,8 +1,8 @@
-NAME = RPN
+NAME = PmergeMe
 
 CC := c++
 CPPFLAGS := -Wall -Werror -Wextra -std=c++98 -g2
-SRC := main.cpp RPN.cpp
+SRC := main.cpp PmergeMe.cpp
 OBJS := $(SRC:%.cpp=%.o)
 
 RM := rm -fr

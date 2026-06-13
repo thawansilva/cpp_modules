@@ -6,7 +6,7 @@
 /*   By: thaperei <thaperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 17:21:44 by thaperei          #+#    #+#             */
-/*   Updated: 2026/06/13 14:01:05 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/06/13 15:23:00 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int main(int argc, char **argv)
 	}
 	try
 	{
-		(void)argv;
 		PmergeMe FJA(&argv[1]);
 		
 		std::cout << "Before: " << FJA << std::endl;
+		FJA.sort();
 		std::cout << "After: " << FJA << std::endl;
 		std::cout << "Time to process a range of " << FJA.getSize()
 		<< " elements with std::vector : " << std::endl;

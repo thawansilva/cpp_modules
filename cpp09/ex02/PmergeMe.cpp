@@ -6,7 +6,7 @@
 /*   By: thaperei <thaperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 20:50:37 by thaperei          #+#    #+#             */
-/*   Updated: 2026/06/13 15:10:47 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/06/13 16:23:20 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,54 @@ void	PmergeMe::DequeFJA(const std::string &str)
 
 int	PmergeMe::GenerateJacobsthal(int n)
 {
-	if (n == 0)
-		return (0);
-	if (n == 1)
-		return (1);
+	if (n == 0) return (0);
+	if (n == 1) return (1);
 	return (GenerateJacobsthal(n - 1) + 2 * GenerateJacobsthal(n - 2));
+}
+
+static void	MergeInsert(std::vector<int> &target)
+{
+	int	struggler = 0;
+
+	if (target.size() % 2 != 0)
+	{
+		struggler = target.back();
+		target.pop_back();
+	}
+
+	std::vector<int>	larger;
+	std::vector<int>	smaller;
+	for (std::size_t i = 0; i < target.size(); i += 2)
+	{
+		if (target[i] < target[i + 1])
+		{
+			smaller.push_back(target[i]);
+			larger.push_back(target[i + 1]);
+		}
+		else
+		{
+			smaller.push_back(target[i + 1]);
+			larger.push_back(target[i]);
+		}
+	}
+
+	std::sort(larger.begin(), larger.end());
+	std::sort(smaller.begin(), smaller.end());
+	larger.insert(larger.begin(), smaller.front());
+
+	smaller.erase(smaller.begin());
+
+	for (std::vector<int>::iterator it = smaller.begin(); it != smaller.end(); ++it)
+		std::cout << *it << std::endl;
+	for (std::vector<int>::iterator it = larger.begin(); it != larger.end(); ++it)
+		std::cout << *it << std::endl;
+	(void) struggler;
+}
+
+void	PmergeMe::sort()
+{
+	MergeInsert(_vec);
+//	MergeInsert(_deq);
 }
 
 const std::size_t	&PmergeMe::getSize() const

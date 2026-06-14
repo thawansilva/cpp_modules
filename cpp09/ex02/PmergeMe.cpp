@@ -6,12 +6,13 @@
 /*   By: thaperei <thaperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 20:50:37 by thaperei          #+#    #+#             */
-/*   Updated: 2026/06/13 16:23:20 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/06/14 19:10:27 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 #include <algorithm>
+#include <utility>
 
 PmergeMe::PmergeMe() {}
 
@@ -59,56 +60,74 @@ void	PmergeMe::DequeFJA(const std::string &str)
 	(void)str;
 }
 
-int	PmergeMe::GenerateJacobsthal(int n)
+static bool comparePairs(const std::pair<int,int> &left, const std::pair<int,int> &right)
 {
-	if (n == 0) return (0);
-	if (n == 1) return (1);
-	return (GenerateJacobsthal(n - 1) + 2 * GenerateJacobsthal(n - 2));
-}
+	return left.second < right.second;
+};
+
+static std::vector<int> generateJacobsthal(int size)
+{
+	std::vector<int>	seq;
+	if (size == 0)
+		return (seq);
+	seq.push_back(1);
+	if (size == 1)
+		return (seq);
+	seq.push_back(3);
+	while (seq.back() < size)
+	{
+		int nextNum = seq[seq.size() - 1] + 2 * seq[seq.size() - 2];
+		seq.push_back(nextNum);
+	}
+	return (seq);
+};
 
 static void	MergeInsert(std::vector<int> &target)
 {
-	int	struggler = 0;
+	int	straggler = -1;
 
 	if (target.size() % 2 != 0)
 	{
-		struggler = target.back();
+		straggler = target.back();
 		target.pop_back();
 	}
 
-	std::vector<int>	larger;
-	std::vector<int>	smaller;
+	// Create pairs
+	std::vector< std::pair<int, int> >	pair_vectors;
 	for (std::size_t i = 0; i < target.size(); i += 2)
 	{
-		if (target[i] < target[i + 1])
-		{
-			smaller.push_back(target[i]);
-			larger.push_back(target[i + 1]);
-		}
-		else
-		{
-			smaller.push_back(target[i + 1]);
-			larger.push_back(target[i]);
-		}
+		if (target[i] > target[i + 1])
+			pair_vectors.push_back(std::make_pair(target[i + 1], target[i]));
+		else 
+			pair_vectors.push_back(std::make_pair(target[i], target[i + 1]));
 	}
+	// Sort pairs
+	std::sort(pair_vectors.begin(), pair_vectors.end(), comparePairs);
 
-	std::sort(larger.begin(), larger.end());
-	std::sort(smaller.begin(), smaller.end());
-	larger.insert(larger.begin(), smaller.front());
+	std::vector<int>	main;
+	std::vector<int>	pend;
+	for (std::vector< std::pair<int, int> >::iterator it = pair_vectors.begin(); it != pair_vectors.end(); ++it)
+	{
+		main.push_back(it->second);
+		pend.push_back(it->first);
+	}
+	main.insert(main.begin(), pend.front());
+	pend.erase(pend.begin());
 
-	smaller.erase(smaller.begin());
+	if (straggler != -1)
+		pend.push_back(straggler);
+	std::vector<int>	jacobsthal_seq = generateJacobsthal(pend.size());
 
-	for (std::vector<int>::iterator it = smaller.begin(); it != smaller.end(); ++it)
+	(void)jacobsthal_seq;
+	// Create insertion array
+	for (std::vector<int>::iterator it = pend.begin(); it != pend.end(); ++it)
 		std::cout << *it << std::endl;
-	for (std::vector<int>::iterator it = larger.begin(); it != larger.end(); ++it)
-		std::cout << *it << std::endl;
-	(void) struggler;
 }
 
 void	PmergeMe::sort()
 {
 	MergeInsert(_vec);
-//	MergeInsert(_deq);
+	//	MergeInsert(_deq);
 }
 
 const std::size_t	&PmergeMe::getSize() const

@@ -34,10 +34,7 @@ PmergeMe::PmergeMe(char **argv)
 
 PmergeMe::~PmergeMe() {}
 
-PmergeMe::PmergeMe(const PmergeMe& src)
-{
-	*this = src;
-}
+PmergeMe::PmergeMe(const PmergeMe& src) { *this = src; }
 
 PmergeMe&	PmergeMe::operator=(const PmergeMe& src)
 {
@@ -50,20 +47,29 @@ PmergeMe&	PmergeMe::operator=(const PmergeMe& src)
 	return *this;
 }
 
-void	PmergeMe::VectorFJA(const std::string &str)
-{
-	(void) str;
-}
+void	PmergeMe::VectorFJA(const std::string &str) { (void) str; }
 
-void	PmergeMe::DequeFJA(const std::string &str)
-{
-	(void)str;
-}
+void	PmergeMe::DequeFJA(const std::string &str) { (void)str; }
 
 static bool comparePairs(const std::pair<int,int> &left, const std::pair<int,int> &right)
 {
 	return left.second < right.second;
 };
+
+template < typename T >
+void	binarySearch(int value, typename T::iterator left, typename T::iterator right)
+{
+	typename T::iterator	mid;
+	while (std::distance(left, right) > 1)
+	{
+		mid = (left - right) / 2;
+		if (value > *mid) left = mid;
+		else right = mid;
+	}
+	if (value > *left)
+		return (left + 1);
+	return (left);
+}
 
 static std::vector<int> generateJacobsthal(int size)
 {
@@ -81,6 +87,42 @@ static std::vector<int> generateJacobsthal(int size)
 	}
 	return (seq);
 };
+
+static	std::vector<int>	createInsertionList(std::vector<int> jacobsthal_seq, std::vector<int> pend)
+{
+	std::vector<int>	insertion;
+	std::size_t			pend_size = pend.size();
+
+	insertion.push_back(jacobsthal_seq.front());
+	while (insertion.size() < pend.size())
+	{
+		jacobsthal_seq.erase(jacobsthal_seq.begin());
+
+		if (!jacobsthal_seq.empty())
+		{
+			int	last = insertion.back();
+			int	jacob = jacobsthal_seq.front();
+			
+			if (static_cast<std::size_t>(jacob) > pend_size)
+				jacob = pend.size() - 1;
+			insertion.push_back(jacob--);
+			while (jacob > last && insertion.size() < pend_size)
+			{
+				if (std::find(insertion.begin(), insertion.end(), jacob) == insertion.end())
+					insertion.push_back(jacob);
+				jacob--;
+			}
+		}
+		else
+		{
+			int	missing = pend.size() - 1;
+			while (insertion.size() < pend_size && missing > insertion.back())
+				insertion.push_back(missing--);
+		}
+	}
+	insertion.erase(insertion.end() - 1);
+	return (insertion);
+}
 
 static void	MergeInsert(std::vector<int> &target)
 {
@@ -118,9 +160,9 @@ static void	MergeInsert(std::vector<int> &target)
 		pend.push_back(straggler);
 	std::vector<int>	jacobsthal_seq = generateJacobsthal(pend.size());
 
-	(void)jacobsthal_seq;
-	// Create insertion array
-	for (std::vector<int>::iterator it = pend.begin(); it != pend.end(); ++it)
+	std::vector<int>	insertion = createInsertionList(jacobsthal_seq, pend);
+
+	for (std::vector<int>::iterator it = insertion.begin(); it != insertion.end(); ++it)
 		std::cout << *it << std::endl;
 }
 
@@ -130,20 +172,11 @@ void	PmergeMe::sort()
 	//	MergeInsert(_deq);
 }
 
-const std::size_t	&PmergeMe::getSize() const
-{
-	return (_size);
-}
+const std::size_t	&PmergeMe::getSize() const { return (_size); }
 
-const std::vector<int>	&PmergeMe::getVector() const
-{
-	return (_vec);
-}
+const std::vector<int>	&PmergeMe::getVector() const { return (_vec); }
 
-const std::deque<int>	&PmergeMe::getDeque() const
-{
-	return (_deq);
-}
+const std::deque<int>	&PmergeMe::getDeque() const { return (_deq); }
 
 std::ostream &operator<<(std::ostream &out, PmergeMe &src)
 {

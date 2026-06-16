@@ -6,7 +6,7 @@
 /*   By: thaperei <thaperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 20:49:15 by thaperei          #+#    #+#             */
-/*   Updated: 2026/06/13 15:23:22 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/06/16 19:13:35 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,10 @@ public:
 	PmergeMe& operator=(const PmergeMe& src);
 
 	//Member Functions
-	void	VectorFJA(const std::string &str);
-	void	DequeFJA(const std::string &str);
-	int		GenerateJacobsthal(int n);
-	void	sort();
+	void				sort();
+	const std::size_t	&getSize() const;
 
 	// Getter
-	const std::size_t		&getSize() const;
 	const std::vector<int>	&getVector() const;
 	const std::deque<int>	&getDeque() const;
 

@@ -6,12 +6,13 @@
 /*   By: thaperei <thaperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 20:50:37 by thaperei          #+#    #+#             */
-/*   Updated: 2026/06/14 19:10:27 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/06/16 19:23:29 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 #include <algorithm>
+#include <sys/time.h>
 #include <utility>
 
 PmergeMe::PmergeMe() {}
@@ -47,18 +48,15 @@ PmergeMe&	PmergeMe::operator=(const PmergeMe& src)
 	return *this;
 }
 
-void	PmergeMe::VectorFJA(const std::string &str) { (void) str; }
-
-void	PmergeMe::DequeFJA(const std::string &str) { (void)str; }
-
 static bool comparePairs(const std::pair<int,int> &left, const std::pair<int,int> &right)
 {
 	return left.second < right.second;
 };
 
-static std::vector<int> generateJacobsthal(int size)
+template < typename Container >
+static Container generateJacobsthal(int size)
 {
-	std::vector<int>	seq;
+	Container	seq;
 	if (size == 0)
 		return (seq);
 	seq.push_back(1);
@@ -73,12 +71,12 @@ static std::vector<int> generateJacobsthal(int size)
 	return (seq);
 };
 
-static	std::vector<int>	createInsertionList(std::vector<int> jacobsthal_seq, std::vector<int> pend)
+template < typename Container >
+static	Container	createInsertionList(Container &jacobsthal_seq, const Container &pend)
 {
-	std::vector<int>	insertion;
+	Container	insertion;
 	std::size_t			pend_size = pend.size();
 
-	std::cout << "size: " << pend_size << std::endl;
 	insertion.push_back(jacobsthal_seq.front());
 	while (insertion.size() < pend.size())
 	{
@@ -88,7 +86,7 @@ static	std::vector<int>	createInsertionList(std::vector<int> jacobsthal_seq, std
 		{
 			int	last = insertion.back();
 			int	jacob = jacobsthal_seq.front();
-			
+
 			if (static_cast<std::size_t>(jacob) > pend_size)
 				jacob = pend.size();
 			insertion.push_back(jacob--);
@@ -110,7 +108,8 @@ static	std::vector<int>	createInsertionList(std::vector<int> jacobsthal_seq, std
 	return (insertion);
 }
 
-static void	MergeInsert(std::vector<int> &target)
+template < typename Container >
+static void	MergeInsert(Container &target)
 {
 	int	straggler = -1;
 
@@ -132,8 +131,9 @@ static void	MergeInsert(std::vector<int> &target)
 	// Sort pairs
 	std::sort(pair_vectors.begin(), pair_vectors.end(), comparePairs);
 
-	std::vector<int>	main;
-	std::vector<int>	pend;
+	// Create main and pend
+	Container	main;
+	Container	pend;
 	for (std::vector< std::pair<int, int> >::iterator it = pair_vectors.begin(); it != pair_vectors.end(); ++it)
 	{
 		main.push_back(it->second);
@@ -142,29 +142,52 @@ static void	MergeInsert(std::vector<int> &target)
 	main.insert(main.begin(), pend.front());
 	pend.erase(pend.begin());
 
-	if (straggler != -1)
-		pend.push_back(straggler);
-	std::vector<int>	jacobsthal_seq = generateJacobsthal(pend.size());
+	Container	jacobsthal_seq = generateJacobsthal<Container>(pend.size());
 
-	std::vector<int>	insertion = createInsertionList(jacobsthal_seq, pend);
-	for (std::vector<int>::iterator it = insertion.begin(); it != insertion.end(); ++it)
+	Container	insertion = createInsertionList(jacobsthal_seq, pend);
+	// Insert elements to main
+	typename Container::iterator insert_pos;
+	for (typename Container::iterator it = insertion.begin(); it != insertion.end(); ++it)
 	{
 		int	value;
-		std::vector<int>::iterator insert_pos;
 
 		value = pend[*it];
 		insert_pos = std::upper_bound(main.begin(), main.end(), value);
 		main.insert(insert_pos, value);
 	}
-
-	for (std::vector<int>::iterator it = main.begin(); it != main.end(); ++it)
-		std::cout << *it << std::endl;
+	if (straggler != -1)
+	{
+		insert_pos = std::upper_bound(main.begin(), main.end(), straggler);
+		main.insert(insert_pos, straggler);
+	}
+	target = main;
 }
 
 void	PmergeMe::sort()
 {
-	MergeInsert(_vec);
-	//	MergeInsert(_deq);
+	std::cout << "Before: " << *this << std::endl;
+
+	timeval start, end;
+
+	gettimeofday(&start, NULL);
+	MergeInsert< std::vector<int> >(_vec);
+	gettimeofday(&end, NULL);
+
+	long elapsed_vec = (end.tv_sec - start.tv_sec) * 1000000L +
+		(end.tv_usec - start.tv_usec);
+
+	gettimeofday(&start, NULL);
+	MergeInsert< std::deque<int> >(_deq);
+	gettimeofday(&end, NULL);
+
+	long elapsed_deq = (end.tv_sec - start.tv_sec) * 1000000L +
+		(end.tv_usec - start.tv_usec);
+
+	std::cout << "After: " << *this << std::endl;
+	std::cout << "Time to process a range of " << _size
+		<< " elements with std::vector: " << elapsed_vec << " microseconds" << std::endl;
+	std::cout << "Time to process a range of " << _size
+		<< " elements with std::deque: " << elapsed_deq << " microseconds" << std::endl;
 }
 
 const std::size_t	&PmergeMe::getSize() const { return (_size); }

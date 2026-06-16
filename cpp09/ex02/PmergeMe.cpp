@@ -56,21 +56,6 @@ static bool comparePairs(const std::pair<int,int> &left, const std::pair<int,int
 	return left.second < right.second;
 };
 
-template < typename T >
-void	binarySearch(int value, typename T::iterator left, typename T::iterator right)
-{
-	typename T::iterator	mid;
-	while (std::distance(left, right) > 1)
-	{
-		mid = (left - right) / 2;
-		if (value > *mid) left = mid;
-		else right = mid;
-	}
-	if (value > *left)
-		return (left + 1);
-	return (left);
-}
-
 static std::vector<int> generateJacobsthal(int size)
 {
 	std::vector<int>	seq;
@@ -93,6 +78,7 @@ static	std::vector<int>	createInsertionList(std::vector<int> jacobsthal_seq, std
 	std::vector<int>	insertion;
 	std::size_t			pend_size = pend.size();
 
+	std::cout << "size: " << pend_size << std::endl;
 	insertion.push_back(jacobsthal_seq.front());
 	while (insertion.size() < pend.size())
 	{
@@ -104,7 +90,7 @@ static	std::vector<int>	createInsertionList(std::vector<int> jacobsthal_seq, std
 			int	jacob = jacobsthal_seq.front();
 			
 			if (static_cast<std::size_t>(jacob) > pend_size)
-				jacob = pend.size() - 1;
+				jacob = pend.size();
 			insertion.push_back(jacob--);
 			while (jacob > last && insertion.size() < pend_size)
 			{
@@ -161,8 +147,17 @@ static void	MergeInsert(std::vector<int> &target)
 	std::vector<int>	jacobsthal_seq = generateJacobsthal(pend.size());
 
 	std::vector<int>	insertion = createInsertionList(jacobsthal_seq, pend);
-
 	for (std::vector<int>::iterator it = insertion.begin(); it != insertion.end(); ++it)
+	{
+		int	value;
+		std::vector<int>::iterator insert_pos;
+
+		value = pend[*it];
+		insert_pos = std::upper_bound(main.begin(), main.end(), value);
+		main.insert(insert_pos, value);
+	}
+
+	for (std::vector<int>::iterator it = main.begin(); it != main.end(); ++it)
 		std::cout << *it << std::endl;
 }
 

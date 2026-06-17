@@ -6,7 +6,7 @@
 /*   By: thaperei <thaperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 17:47:11 by thaperei          #+#    #+#             */
-/*   Updated: 2026/06/17 20:36:45 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/06/17 20:48:48 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	RPN::calculate(std::string opStr)
 	std::stringstream	ss(opStr);
 	std::stack<int> stack;
 
+	if (opStr.size() == 0)
+		throw std::runtime_error("Error: empty string");
 	for (std::string token; std::getline(ss, token, ' ');)
 	{
 		int result;
@@ -72,5 +74,7 @@ void	RPN::calculate(std::string opStr)
 		else
 			throw std::runtime_error("Error: invalid input");
 	}
+	if (stack.size() != 1)
+		throw std::runtime_error("Error: too much elements on stack or missing operator");
 	std::cout << stack.top() << std::endl;
 }

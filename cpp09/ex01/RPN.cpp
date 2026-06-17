@@ -6,7 +6,7 @@
 /*   By: thaperei <thaperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 17:47:11 by thaperei          #+#    #+#             */
-/*   Updated: 2026/06/10 20:35:19 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/06/17 20:36:45 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	RPN::calculate(std::string opStr)
 		else if (std::isspace(token[0]))
 			continue;
 		else
-			throw std::runtime_error("Error: Wrong format");
+			throw std::runtime_error("Error: invalid input");
 	}
 	std::cout << stack.top() << std::endl;
 }

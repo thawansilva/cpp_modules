@@ -57,35 +57,35 @@ template < typename Container >
 static Container generateJacobsthal(int size)
 {
 	Container	seq;
-	if (size == 0)
-		return (seq);
+
+	seq.push_back(0);
 	seq.push_back(1);
-	if (size == 1)
-		return (seq);
-	seq.push_back(3);
-	while (seq.back() < size)
+
+	int	nextNumber = *(seq.rbegin() + 1) * 2 + seq.back();
+	while (nextNumber < size)
 	{
-		int nextNum = seq[seq.size() - 1] + 2 * seq[seq.size() - 2];
-		seq.push_back(nextNum);
+		seq.push_back(nextNumber);
+		nextNumber = *(seq.rbegin() + 1) * 2 + seq.back();
 	}
+	seq.erase(seq.begin() + 1);
 	return (seq);
 };
 
 template < typename Container >
-static	Container	createInsertionList(Container &jacobsthal_seq, const Container &pend)
+static	Container	createInsertionList(Container &jacobsthal, const Container &pend)
 {
-	Container	insertion;
-	std::size_t			pend_size = pend.size();
+	Container		insertion;
+	std::size_t		pend_size = pend.size();
 
-	insertion.push_back(jacobsthal_seq.front());
+	insertion.push_back(jacobsthal.front());
 	while (insertion.size() < pend.size())
 	{
-		jacobsthal_seq.erase(jacobsthal_seq.begin());
+		jacobsthal.erase(jacobsthal.begin());
 
-		if (!jacobsthal_seq.empty())
+		if (!jacobsthal.empty())
 		{
 			int	last = insertion.back();
-			int	jacob = jacobsthal_seq.front();
+			int	jacob = jacobsthal.front();
 
 			if (static_cast<std::size_t>(jacob) > pend_size)
 				jacob = pend.size();
@@ -99,18 +99,22 @@ static	Container	createInsertionList(Container &jacobsthal_seq, const Container 
 		}
 		else
 		{
-			int	missing = pend.size() - 1;
-			while (insertion.size() < pend_size && missing > insertion.back())
+			int	missing = pend_size - 1;
+			while (insertion.size() < pend_size)
 				insertion.push_back(missing--);
 		}
 	}
-	insertion.erase(insertion.end() - 1);
 	return (insertion);
 }
 
 template < typename Container >
 static void	MergeInsert(Container &target)
 {
+	if (target.size() <= 3)
+	{
+		std::sort(target.begin(), target.end());
+		return ;
+	}
 	int	straggler = -1;
 
 	if (target.size() % 2 != 0)
@@ -129,8 +133,7 @@ static void	MergeInsert(Container &target)
 			pair_vectors.push_back(std::make_pair(target[i], target[i + 1]));
 	}
 	// Sort pairs
-	if (pair_vectors.size() > 1)
-		std::sort(pair_vectors.begin(), pair_vectors.end(), comparePairs);
+	std::sort(pair_vectors.begin(), pair_vectors.end(), comparePairs);
 
 	// Create main and pend
 	Container	main;
@@ -140,12 +143,13 @@ static void	MergeInsert(Container &target)
 		main.push_back(it->second);
 		pend.push_back(it->first);
 	}
-	main.insert(main.begin(), pend.front());
-	pend.erase(pend.begin());
 
-	Container	jacobsthal_seq = generateJacobsthal<Container>(pend.size());
+	if (straggler != -1)
+		pend.push_back(straggler);
+	
+	Container	jacobsthal = generateJacobsthal<Container>(pend.size());
 
-	Container	insertion = createInsertionList(jacobsthal_seq, pend);
+	Container	insertion = createInsertionList(jacobsthal, pend);
 	// Insert elements to main
 	typename Container::iterator insert_pos;
 	for (typename Container::iterator it = insertion.begin(); it != insertion.end(); ++it)
@@ -155,11 +159,6 @@ static void	MergeInsert(Container &target)
 		value = pend[*it];
 		insert_pos = std::upper_bound(main.begin(), main.end(), value);
 		main.insert(insert_pos, value);
-	}
-	if (straggler != -1)
-	{
-		insert_pos = std::upper_bound(main.begin(), main.end(), straggler);
-		main.insert(insert_pos, straggler);
 	}
 	target = main;
 }

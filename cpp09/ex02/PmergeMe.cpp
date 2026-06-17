@@ -6,7 +6,7 @@
 /*   By: thaperei <thaperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 20:50:37 by thaperei          #+#    #+#             */
-/*   Updated: 2026/06/16 19:23:29 by thaperei         ###   ########.fr       */
+/*   Updated: 2026/06/16 21:23:14 by thaperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,8 @@ static void	MergeInsert(Container &target)
 			pair_vectors.push_back(std::make_pair(target[i], target[i + 1]));
 	}
 	// Sort pairs
-	std::sort(pair_vectors.begin(), pair_vectors.end(), comparePairs);
+	if (pair_vectors.size() > 1)
+		std::sort(pair_vectors.begin(), pair_vectors.end(), comparePairs);
 
 	// Create main and pend
 	Container	main;

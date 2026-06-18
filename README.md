@@ -56,3 +56,8 @@ A collection of C++ programming exercises covering fundamental concepts and obje
 - [ex00 - Easy find](cpp08/ex00/)
 - [ex01 - Span](cpp08/ex01/)
 - [ex02 - MutantStack](cpp08/ex02/)
+
+### [CPP09](cpp09/) - STL
+- [ex00 - Bitcoin Exchange](cpp09/ex00/)
+- [ex01 - Reverse Polish Notation](cpp09/ex01/)
+- [ex02 - PmergeMe](cpp09/ex02/)
